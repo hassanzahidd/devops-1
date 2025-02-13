@@ -2,7 +2,7 @@ FROM node
 
 WORKDIR /app
 
-COPY ..
+COPY . .
 
 
 COPY package.json package-lock.json
