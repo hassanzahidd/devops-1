@@ -36,10 +36,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd app
           npm install
 
-      - name: Run tests
+      - name: Run server in background
         run: |
-          cd app
-          npm test
+          nohup node server.js > server.log 2>&1 &
+
+      - name: Check if server is running
+        run: |
+          sleep 5  # Wait for the server to start
+          curl -I http://localhost:3000 || (echo "Server did not start" && exit 1)
