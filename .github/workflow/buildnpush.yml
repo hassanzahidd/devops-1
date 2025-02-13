@@ -1,14 +1,45 @@
-
-name: Docker Build and Push
+name: first app system
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-    build:
-        runs-on: windows-latest
-        steps:
-            - uses: actions/checkout@v4
-            - name: Docker Hub Login
-              run: echo "mypassword" |  docker login -u codewithfaraz -password-stdin
+  build:
+    runs-on: ubuntu-latest
+    services:
+      firstapp:
+        image: hassanzahidd/hassan-first-app:latest
+        ports:
+          - 3001:3000
+        volumes:
+          - ./:/app
+          - /app/node_modules
+
+      db:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          cd app
+          npm install
+
+      - name: Run tests
+        run: |
+          cd app
+          npm test
