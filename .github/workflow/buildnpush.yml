@@ -1,18 +1,4 @@
-name: Some Name
-age: 2
-isMale: true
-# access: true
-# courses:
-#   - maths
-#   - science
-#   - english
-#   - urdu
-# address:
-#   home_address:
-#     house_nunber: 123
-#   office_address:
-#     house_nunber: 456
-#     street: 789
+
 name: Docker Build and Push
 
 on:
